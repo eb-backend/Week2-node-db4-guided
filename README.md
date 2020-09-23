@@ -1,5 +1,15 @@
 # Node DB 4 Guided Project
 
+## TAKE AWAYS
+* There are 3 different types of relationships
+  * Many to many -> farm can have many different types of animals, and different types of animals can live in different farms, orders can have diffeent products, and products can be in many different orders
+  * One to to one relationship
+  * One to many  -> farm can have many farmers, rental cars and driver , author -> blog posts
+
+* the point is to avoid redundancies
+* used `PRAGMA foreign_keys = ON` to turn on foreign keys
+* sql lite automatically prevent data anomoly by cutting with foreign key when it became invalid, (reference option)
+
 Guided project for **Node DB 4** Module.
 
 ## Prerequisites

@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const db = require('./data/db-config.js');
 
 const server = express();
+const Zoo=require("./models/zoo")
 
 server.use(helmet());
 server.use(express.json());
@@ -20,6 +21,7 @@ server.get('/api/species', (req, res) => {
 });
 
 server.get('/api/animals', (req, res) => {
+  // res.status(200).json({message:"SOMETHING"})
   // get all animals from the database
   // include species name
   db('animals as a')
@@ -31,6 +33,20 @@ server.get('/api/animals', (req, res) => {
   .catch(error => {
     res.status(500).json(error);
   });
+
+  // db('animals as a')
+  //   .leftJoin('species as s', 's.id', 'a.species_id')
+  //   .select('a.id', 'a.animal_name', 's.species_name')
+  // .then(animals => {
+  //   res.status(200).json(animals);
+  // })
+  // .catch(error => {
+  //   res.status(500).json(error);
+  // });
+  // db("animals")
+  // .then(species=>{
+  //   res.status(200).json(species)
+  // })
 });
 
 // create animal
@@ -67,5 +83,15 @@ server.delete('/api/species/:id', (req, res) => {
     res.status(500).json(error);
   });
 });
+
+
+server.get("/zoos/:id/animals", async(req,res,next)=>{
+  try{
+const animals= await Zoo.findAnimals(req.params.id)
+res.json(animals)
+  }catch(err){
+      next(err)
+  }
+})
 
 module.exports = server;

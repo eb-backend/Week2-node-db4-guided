@@ -11,5 +11,11 @@ module.exports = {
     seeds: {
       directory: './data/seeds'
     },
+    //needed when using foreign keys
+    pool:{
+      afterCreate:(conn, done)=>{
+        conn.run("PRAGMA foreign_keys=-ON", done)
+      }
+    }
   },
 };
